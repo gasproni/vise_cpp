@@ -1,0 +1,19 @@
+
+import os.path
+import platform
+
+Import( 'env' )
+env = env.Clone( )
+
+if platform.system( ) == "Windows" :
+    env.Append( CPPFLAGS = ' /D "VISE_EXPORT"' )
+             
+generated = os.path.join( env[ 'VISE_LIB_DIR' ], 'vise' )
+
+env.SharedLibrary( generated,
+                   [ 'Serializable.cpp',
+                     'FileBasedStore.cpp',
+                     'MechanicsState.cpp',
+                     'CheckingState.cpp',
+                     'Vise.cpp' ],
+                   LIBS = env[ 'BOOST_LIBS' ] )

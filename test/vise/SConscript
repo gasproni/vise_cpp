@@ -1,0 +1,21 @@
+#
+import os.path
+import platform
+
+Import( 'env' )
+env = env.Copy( )
+
+generated = os.path.join( env[ 'VISE_BIN_DIR' ], 'run_unit_tests' )
+
+dlLibs = [ ]
+if platform.system( ) == 'Linux' :
+    dlLibs = [ 'dl' ]
+
+env.Program( generated,
+             [ 'Main.cpp',
+               'SerializableTest.cpp',
+               'SerializableListTest.cpp',
+               'FileBasedStoreTest.cpp',
+               'DefaultMechanicsTest.cpp' ],
+              LIBS = [ 'vise',
+                       'cppunit' ] + env[ 'BOOST_LIBS' ] + dlLibs )
